@@ -1,0 +1,13 @@
+{
+  "fields": [
+    {
+      "name": "stringified_array1",
+      "type": "stringified_array",
+      "delimiter": ","
+    },
+    {
+      "name": "stringified_array2",
+      "type": "stringified_array"
+    }
+  ]
+}

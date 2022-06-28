@@ -144,4 +144,14 @@ describe("changelog schema snapshot view sql generation", () => {
     );
     expect(result.query).to.equal(expectedQuery);
   });
+
+  it("should handle stringified array type", async () => {
+    const expectedQuery = await readFormattedSQL(`${sqlDir}/stringifiedArraySchema.txt`);
+    const result = testBuildSchemaViewQuery(
+      testDataset,
+      testTable,
+      await readBigQuerySchema(`${schemaDir}/stringifiedArraySchema.json`)
+    );
+    expect(result.query).to.equal(expectedQuery);
+  })
 });

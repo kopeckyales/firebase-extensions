@@ -33,6 +33,10 @@ export function firestoreArray(datasetId: string, selector: string): string {
   }.${datasetId}.firestoreArray\`(${selector})`;
 }
 
+export function stringifiedArray(datasetId: string, selector: string, delimiter = ', '): string {
+  return `ARRAY_TO_STRING(${firestoreArray(datasetId, selector)}, "${delimiter}")`
+}
+
 export function firestoreBoolean(datasetId: string, selector: string): string {
   return `\`${
     process.env.PROJECT_ID

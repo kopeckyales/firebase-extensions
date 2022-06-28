@@ -25,6 +25,7 @@ import {
   firestoreGeopoint,
   firestoreNumber,
   firestoreTimestamp,
+  stringifiedArray,
   udfs,
 } from "./udf";
 
@@ -34,6 +35,7 @@ export type FirestoreFieldType =
   | "number"
   | "map"
   | "array"
+  | "stringified_array"
   | "null"
   | "string"
   | "stringified_map"
@@ -56,6 +58,7 @@ export type FirestoreField = {
   repeated?: boolean;
   description?: string;
   type: FirestoreFieldType;
+  delimiter?: string;
 };
 
 export type FirestoreSchema = {
@@ -81,6 +84,7 @@ const firestoreToBigQueryFieldType: {
   array: null /* mode: REPEATED type: STRING */,
   map: null,
   stringified_map: "STRING",
+  stringified_array: "STRING"
 };
 
 /**
@@ -449,6 +453,13 @@ const processLeafField = (
   switch (field.type) {
     case "null":
       selector = transformer(`NULL`);
+      break;
+    case "stringified_array":
+      selector = stringifiedArray(
+        datasetId,
+        jsonExtract(dataFieldName, extractPrefixJoined, field, ``, transformer),
+        field.delimiter
+      );
       break;
     case "stringified_map":
       selector = jsonExtract(
