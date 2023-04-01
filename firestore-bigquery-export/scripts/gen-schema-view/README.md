@@ -1,3 +1,5 @@
+Forked from @firebaseextensions/fs-bq-schema-views
+
 The `fs-bq-schema-views` script is for use with the official Firebase Extension
 [_Export Collections to BigQuery_](https://github.com/firebase/extensions/tree/master/firestore-bigquery-export).
 
